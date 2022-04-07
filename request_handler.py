@@ -1,9 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import get_all_animals, get_single_animal, create_animal
-from views import get_all_locations, get_single_location
-from views import get_all_employees, get_single_employee, create_employee
-from views import get_all_customers, get_single_customer, create_customer
+from views import get_all_animals, get_single_animal, create_animal, delete_animal
+from views import get_all_locations, get_single_location, delete_location
+from views import get_all_employees, get_single_employee, create_employee, delete_employee
+from views import get_all_customers, get_single_customer, create_customer, delete_customer
 
 # Q: the purpose of this module is to handle HTTP methods, basically the brains/innerworkings
 # of when we would do a "PUT" or "POST" etc when interacting with an API in the past, correct?
@@ -179,7 +179,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         post_body = json.loads(post_body)
 
         # Parse the URL
-        (resource, id) = self.parse_url(self.path)
+        resource = self.parse_url(self.path)[0]
 
         # Initialize new animal
         new_animal = None
@@ -219,6 +219,30 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Handles PUT requests to the server
         """
         self.do_POST()
+
+    def do_DELETE(self):
+        """_summary_
+        """
+        # Set a 204 response code
+        self._set_headers(204)
+
+    # Parse the URL
+        (resource, id) = self.parse_url(self.path)
+
+    # Delete a single animal from the list
+        if resource == "animals":
+            delete_animal(id)
+
+        if resource == "locations":
+            delete_location(id)
+
+        if resource == "employees":
+            delete_employee(id)
+
+        if resource == "customers":
+            delete_customer(id)
+    # Encode the new animal and send in response
+        self.wfile.write("".encode())
 
 
 # This function is not inside the class. It is the starting
