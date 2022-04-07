@@ -1,8 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import get_all_animals, get_single_animal
+import json
+from views import get_all_animals, get_single_animal, create_animal
 from views import get_all_locations, get_single_location
-from views import get_all_employees, get_single_employee
-from views import get_all_customers, get_single_customer
+from views import get_all_employees, get_single_employee, create_employee
+from views import get_all_customers, get_single_customer, create_customer
 
 # Q: the purpose of this module is to handle HTTP methods, basically the brains/innerworkings
 # of when we would do a "PUT" or "POST" etc when interacting with an API in the past, correct?
@@ -168,18 +169,51 @@ class HandleRequests(BaseHTTPRequestHandler):
     # Here's a method on the class that overrides the parent's method.
     # It handles any POST request.
     def do_POST(self):
-        """Handles POST requests to the server
+        """_summary_
         """
-        # Set response code to 'Created'
         self._set_headers(201)
-
         content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
-        response = f"received post request:<br>{post_body}"
-        self.wfile.write(response.encode())
 
-    # Here's a method on the class that overrides the parent's method.
-    # It handles any PUT request.
+        # Convert JSON string to a Python dictionary
+        post_body = json.loads(post_body)
+
+        # Parse the URL
+        (resource, id) = self.parse_url(self.path)
+
+        # Initialize new animal
+        new_animal = None
+
+        # Add a new animal to the list. Don't worry about
+        # the orange squiggle, you'll define the create_animal
+        # function next.
+        if resource == "animals":
+            new_animal = create_animal(post_body)
+
+        # Encode the new animal and send in response
+        self.wfile.write(f"{new_animal}".encode())
+
+        new_employee = None
+
+        # Add a new animal to the list. Don't worry about
+        # the orange squiggle, you'll define the create_animal
+        # function next.
+        if resource == "employees":
+            new_employee = create_employee(post_body)
+
+        # Encode the new animal and send in response
+        self.wfile.write(f"{new_employee}".encode())
+
+        new_customer = None
+
+        # Add a new animal to the list. Don't worry about
+        # the orange squiggle, you'll define the create_animal
+        # function next.
+        if resource == "customers":
+            new_customer = create_customer(post_body)
+
+        # Encode the new animal and send in response
+        self.wfile.write(f"{new_customer}".encode())
 
     def do_PUT(self):
         """Handles PUT requests to the server
