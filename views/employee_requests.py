@@ -1,11 +1,13 @@
 EMPLOYEES = [
         {
             "id": 1,
-            "name": "Willy Wonka"
+            "name": "Willy Wonka",
+            "locationId": "1"
         },
         {
             "id": 2,
-            "name": "Ty Dolla Sign"
+            "name": "Ty Dolla Sign",
+            "locationId": "2"
         }
     ]
 
@@ -40,3 +42,27 @@ def get_all_employees():
         _type_: _description_
     """
     return EMPLOYEES
+
+def create_employee(employee):
+    """_summary_
+
+    Args:
+        animal (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    # Get the id value of the last animal in the list
+    max_id = EMPLOYEES[-1]["id"]
+
+    # Add 1 to whatever that number is
+    new_id = max_id + 1
+
+    # Add an `id` property to the animal dictionary
+    employee["id"] = new_id
+
+    # Add the animal dictionary to the list
+    EMPLOYEES.append(employee)
+
+    # Return the dictionary with `id` property added
+    return employee
