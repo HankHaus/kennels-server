@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views import get_all_animals, get_single_animal, get_animals_by_location
-from views import get_animals_by_status, delete_animal, update_animal
+from views import get_animals_by_status, delete_animal, update_animal, create_animal
 # from views import create_animal, delete_animal, update_animal
 from views import get_all_locations, get_single_location
 # from views import delete_location, update_location
