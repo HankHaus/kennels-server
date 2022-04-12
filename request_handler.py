@@ -166,6 +166,11 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_customer(id)}"
                 else:
                     response = f"{get_all_customers()}"
+            elif resource == "employees":
+                if id is not None:
+                    response = f"{get_single_employee(id)}"
+                else:
+                    response = f"{get_all_employees()}"
 
         # Response from parse_url() is a tuple with 3
         # items in it, which means the request was for
@@ -188,7 +193,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             elif key == "status" and resource == "animals":
                 response = get_animals_by_status(value)
 
-        self.wfile.write(response.encode())
+        self.wfile.write(f"{response}".encode())
 
     # Here's a method on the class that overrides the parent's method.
     # It handles any POST request.
