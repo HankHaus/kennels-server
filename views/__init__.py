@@ -1,4 +1,5 @@
 from .animal_requests import get_all_animals, get_animals_by_status, update_animal
+from .animal_requests import create_animal
 from .animal_requests import get_single_animal, get_animals_by_location, delete_animal
 # from .animal_requests import create_animal, delete_animal, update_animal
 
