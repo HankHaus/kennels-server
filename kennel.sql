@@ -37,6 +37,8 @@ INSERT INTO `Location` VALUES (null, 'Nashville North', "64 Washington Heights")
 INSERT INTO `Location` VALUES (null, 'Nashville South', "101 Penn Ave");
 
 
+DROP TABLE Employee
+
 INSERT INTO `Employee` VALUES (null, "Madi Peper", "35498 Madison Ave", 1);
 INSERT INTO `Employee` VALUES (null, "Kristen Norris", "100 Main St", 1);
 INSERT INTO `Employee` VALUES (null, "Meg Ducharme", "404 Unknown Ct", 2);
